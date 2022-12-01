@@ -1,9 +1,27 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import { Route, Switch } from 'react-router-dom';
+import styled, {createGlobalStyle} from 'styled-components';
+import {Route, Switch} from 'react-router-dom';
 import Header from './Header/Header';
-import Products from './Products/Products';
-import Cart from './Cart/Cart';
+import {ApolloProvider} from "react-apollo";
+import ProductsApollo from "./Products/ProductsApollo";
+import ApolloClient from "apollo-client";
+import {HttpLink} from "apollo-link-http";
+import {InMemoryCache} from "apollo-cache-inmemory";
+import CartApollo from "./Cart/CartApollo";
+
+const cache = new InMemoryCache();
+cache.writeData({
+	data: {
+		limit: 5,
+	},
+});
+
+const client = new ApolloClient({
+	link: new HttpLink({
+		uri: 'http://localhost:4000/graphql',
+	}),
+	cache
+});
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -22,16 +40,19 @@ const AppWrapper = styled.div`
 `;
 
 const App = () => (
-  <>
-    <GlobalStyle />
-    <AppWrapper>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={Products} />
-        <Route path='/cart' component={Cart} />
-      </Switch>
-    </AppWrapper>
-  </>
+	<ApolloProvider client={client}>
+		<GlobalStyle/>
+		<AppWrapper>
+			<Header/>
+			<Switch>
+				{/*<Route exact path='/' component={Products}/>*/}
+				{/*<Route path='/cart' component={Cart}/>*/}
+
+				<Route exact path='/' component={ProductsApollo}/>
+				<Route path='/cart' component={CartApollo}/>
+			</Switch>
+		</AppWrapper>
+	</ApolloProvider>
 );
 
 export default App;

@@ -22,34 +22,34 @@ const Alert = styled.span`
   text-align: center;
 `;
 
-const Cart = ({ history, loading, error, cart }) => (
-  <>
-    {history && (
-      <SubHeader title='Cart' goToCart={() => history.push('/cart')} />
-    )}
-    {!loading && !error ? (
-      <CartWrapper>
-        <CartItemsWrapper>
-          {cart.products &&
-            cart.products.map(product => (
-              <ProductItem key={product.id} data={product} />
-            ))}
-        </CartItemsWrapper>
-        <Totals count={cart.total} />
-      </CartWrapper>
-    ) : (
-      <Alert>{loading ? 'Loading...' : error}</Alert>
-    )}
-  </>
+const Cart = ({history, loading, error, cart}) => (
+	<>
+		{history && (
+			<SubHeader title='Cart' goToCart={() => history.push('/cart')}/>
+		)}
+		{!loading && !error ? (
+			<CartWrapper>
+				<CartItemsWrapper>
+					{cart.products &&
+					cart.products.map(product => (
+						<ProductItem key={product.id} data={product}/>
+					))}
+				</CartItemsWrapper>
+				<Totals count={cart.total}/>
+			</CartWrapper>
+		) : (
+			<Alert>{loading ? 'Loading...' : error}</Alert>
+		)}
+	</>
 );
 
 Cart.defaultProps = {
-  loading: false,
-  erorr: '',
-  cart: {
-    products: [],
-    total: 0,
-  },
+	loading: false,
+	erorr: '',
+	cart: {
+		products: [],
+		total: 0,
+	},
 };
 
 export default Cart;

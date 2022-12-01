@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {AddToCartButton} from "../Cart/AddToCartButton";
 
 const ProductItemWrapper = styled.div`
   display: flex;
@@ -22,11 +23,12 @@ const Thumbnail = styled.img`
   border-radius: 5px;
 `;
 
-const ProductItem = ({ data }) => (
-  <ProductItemWrapper>
-    <Thumbnail src={data.thumbnail} width={200} />
-    <Title>{data.title}</Title>
-  </ProductItemWrapper>
+const ProductItem = ({data}) => (
+	<ProductItemWrapper>
+		<Thumbnail src={data.thumbnail} width={200}/>
+		<Title>{data.title}</Title>
+		<AddToCartButton productId={data.id}/>
+	</ProductItemWrapper>
 );
 
 export default ProductItem;

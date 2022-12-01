@@ -27,14 +27,14 @@ const SubHeaderButton = styled(Button)`
   margin: 10px 5%;
 `;
 
-const SubHeader = ({ goBack, title, goToCart = false }) => (
-  <SubHeaderWrapper>
-    {goBack && (
-      <SubHeaderButton onClick={goBack}>{`< Go Back`}</SubHeaderButton>
-    )}
-    <Title>{title}</Title>
-    {goToCart && <CartButton onClick={goToCart} />}
-  </SubHeaderWrapper>
+const SubHeader = ({goBack, title, goToCart = false}) => (
+	<SubHeaderWrapper>
+		{goBack && (
+			<SubHeaderButton onClick={goBack}>{`< Go Back`}</SubHeaderButton>
+		)}
+		<Title>{title}</Title>
+		{goToCart && <CartButton onClick={goToCart}/>}
+	</SubHeaderWrapper>
 );
 
 export default SubHeader;

@@ -14,7 +14,6 @@ const Checkout = () => {
     <CheckoutWrapper>
       <p>This is the checkout, press the button below to complete:</p>
       <Button color='royalBlue'>Complete checkout</Button>
-      )}
     </CheckoutWrapper>
   );
 };

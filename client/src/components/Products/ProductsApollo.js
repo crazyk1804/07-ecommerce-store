@@ -31,7 +31,6 @@ const ProductsApollo = ({history}) => (
 		)}
 		<Query query={GET_LIMIT}>
 			{({ data }) => {
-				console.log('limit data', data);
 				return <>
 					<Filters limit={parseInt(data.limit)}/>
 					<Query
@@ -52,32 +51,6 @@ const ProductsApollo = ({history}) => (
 					</Query>
 				</>}}
 		</Query>
-
-		{/*<Query query={GET_LIMIT}>*/}
-		{/*	{({data}) => (*/}
-		{/*		<>*/}
-		{/*			<Filters limit={parseInt(data.limit)}/>*/}
-		{/*			<Query*/}
-		{/*				query={GET_PRODUCTS}*/}
-		{/*				variables={{limit: data.limit}}*/}
-		{/*			>*/}
-		{/*				{({loading, error, data}) => {*/}
-		{/*					if (loading || error) {*/}
-		{/*						return <Alert>{loading ? 'Loading...' : error.message}</Alert>;*/}
-		{/*					}*/}
-		{/*					return (*/}
-		{/*						<ProductItemsWrapper>*/}
-		{/*							{data.products &&*/}
-		{/*							data.products.map(product => (*/}
-		{/*								<ProductItem key={product.id} data={product}/>*/}
-		{/*							))}*/}
-		{/*						</ProductItemsWrapper>*/}
-		{/*					);*/}
-		{/*				}}*/}
-		{/*			</Query>*/}
-		{/*		</>*/}
-		{/*	)}*/}
-		{/*</Query>*/}
 	</>
 );
 

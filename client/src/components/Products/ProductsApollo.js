@@ -5,7 +5,8 @@ import SubHeader from '../Header/SubHeader';
 import ProductItem from './ProductItem';
 import gql from "graphql-tag";
 import {LoadingOrError} from "../CMM/LoadingOrError";
-import {GET_PRODUCTS} from "../../constants";
+import {GET_LIMIT, GET_PRODUCTS} from "../../constants";
+import {Filters} from "./Filters";
 
 const ProductItemsWrapper = styled.div`
   display: flex;
@@ -28,19 +29,55 @@ const ProductsApollo = ({history}) => (
 				goToCart={() => history.push('/cart')}
 			/>
 		)}
-		<Query query={GET_PRODUCTS}>
-			{({ loading, error, data }) => {
-				if(loading || error) return <LoadingOrError loading={loading} error={error}/>
+		<Query query={GET_LIMIT}>
+			{({ data }) => {
+				console.log('limit data', data);
+				return <>
+					<Filters limit={parseInt(data.limit)}/>
+					<Query
+						query={GET_PRODUCTS}
+						variables={{limit: data.limit}}
+					>
+						{({ loading, error, data }) => {
+							if(loading || error) return <LoadingOrError loading={loading} error={error}/>
 
-				return (
-					<ProductItemsWrapper>
-						{data.products && data.products.map(product => (
-							<ProductItem key={product.id} data={product}/>
-						))}
-					</ProductItemsWrapper>
-				);
-			}}
+							return (
+								<ProductItemsWrapper>
+									{data.products && data.products.map(product => {
+										return <ProductItem key={product.id} data={product}/>
+									})}
+								</ProductItemsWrapper>
+							);
+						}}
+					</Query>
+				</>}}
 		</Query>
+
+		{/*<Query query={GET_LIMIT}>*/}
+		{/*	{({data}) => (*/}
+		{/*		<>*/}
+		{/*			<Filters limit={parseInt(data.limit)}/>*/}
+		{/*			<Query*/}
+		{/*				query={GET_PRODUCTS}*/}
+		{/*				variables={{limit: data.limit}}*/}
+		{/*			>*/}
+		{/*				{({loading, error, data}) => {*/}
+		{/*					if (loading || error) {*/}
+		{/*						return <Alert>{loading ? 'Loading...' : error.message}</Alert>;*/}
+		{/*					}*/}
+		{/*					return (*/}
+		{/*						<ProductItemsWrapper>*/}
+		{/*							{data.products &&*/}
+		{/*							data.products.map(product => (*/}
+		{/*								<ProductItem key={product.id} data={product}/>*/}
+		{/*							))}*/}
+		{/*						</ProductItemsWrapper>*/}
+		{/*					);*/}
+		{/*				}}*/}
+		{/*			</Query>*/}
+		{/*		</>*/}
+		{/*	)}*/}
+		{/*</Query>*/}
 	</>
 );
 

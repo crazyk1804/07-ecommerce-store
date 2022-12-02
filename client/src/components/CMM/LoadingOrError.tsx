@@ -6,8 +6,8 @@ const Alert = styled.span`
   text-align: center;
 `;
 
-export const LoadingOrError = ({loading, error}: {loading?: boolean, error?: string}) => {
+export const LoadingOrError = ({loading, error}: {loading?: boolean, error?: Error}) => {
 	console.log('loading', loading);
 	console.log('error', error);
-	return <Alert>{ loading ? 'Loading...' : error }</Alert>;
+	return <Alert>{ loading ? 'Loading...' : error?.message }</Alert>;
 }

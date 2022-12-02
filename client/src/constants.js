@@ -1,13 +1,23 @@
 import gql from "graphql-tag";
 
+// export const GET_PRODUCTS = gql`
+// 	query getProducts($limit: Int) {
+// 		products(limit: $limit) {
+// 			id
+// 			title
+// 			thumbnail
+// 		}
+// 	}
+// `;
+
 export const GET_PRODUCTS = gql`
-	query getProducts {
-		products {
-			id
-			title
-			thumbnail
-		}
-	}
+  query getProducts($limit: Int) {
+    products(limit: $limit) {
+      id
+      title
+      thumbnail
+    }
+  }
 `;
 
 export const GET_CART = gql`
@@ -36,5 +46,11 @@ export const ADD_TO_CART = gql`
 		addToCart(input: { productId: $productId }) {
 			total
 		}
+	}
+`;
+
+export const GET_LIMIT = gql`
+	query getLimit {
+		limit @client
 	}
 `;

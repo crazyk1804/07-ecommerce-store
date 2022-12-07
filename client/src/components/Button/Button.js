@@ -5,7 +5,7 @@ const ButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: royalblue;
   color: white;
   padding: 10px;
   line-height: 2;

@@ -7,6 +7,8 @@ import gql from "graphql-tag";
 import {LoadingOrError} from "../CMM/LoadingOrError";
 import { Query } from 'react-apollo';
 import {GET_CART} from "../../constants";
+import {Link} from "react-router-dom";
+import Button from "../Button/Button";
 
 const CartWrapper = styled.div`
   display: flex;
@@ -26,10 +28,11 @@ const Alert = styled.span`
   text-align: center;
 `;
 
-const CartApollo = ({history}) => (
-	<>
+const CartApollo = ({history}) => {
+	console.log('cart apollo history', history);
+	return (<>
 		{history && (
-			<SubHeader title='Cart' goToCart={() => history.push('/cart')}/>
+			<SubHeader title='Cart' goBack={() => history.goBack()}/>
 		)}
 		<Query query={GET_CART}>
 			{({loading, error, data}) => {
@@ -42,6 +45,12 @@ const CartApollo = ({history}) => (
 								<ProductItem key={product.id} data={product}/>
 							))}
 						</CartItemsWrapper>
+						<Totals count={data.cart.total}/>
+						{ data.cart && data.cart.products.length > 0 && (
+							<Link to="/checkout">
+								<Button>Checkout</Button>
+							</Link>
+						)}
 					</CartWrapper>
 				)
 			}}
@@ -59,8 +68,8 @@ const CartApollo = ({history}) => (
 		{/*) : (*/}
 		{/*	<Alert>{loading ? 'Loading...' : error}</Alert>*/}
 		{/*)}*/}
-	</>
-);
+	</>)
+};
 
 CartApollo.defaultProps = {
 	loading: false,
